@@ -1,0 +1,61 @@
+{
+    "models": [
+        {
+            "classname": "Photograph",
+            "code": "class Photograph(Base):\n    \"\"\"description: Table to store information about photographs.\"\"\"\n    __tablename__ = 'photograph'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    title = Column(String, nullable=True)\n    description = Column(String, nullable=True)\n    upload_date = Column(Date, nullable=True)\n    photographer_id = Column(Integer, ForeignKey('photographer.id'))\n    album_id = Column(Integer, ForeignKey('album.id'))\n    location_id = Column(Integer, ForeignKey('location.id'))\n    category_id = Column(Integer, ForeignKey('category.id'))",
+            "sqlite_create": "CREATE TABLE photograph (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    title TEXT,\n    description TEXT,\n    upload_date DATE,\n    photographer_id INTEGER,\n    album_id INTEGER,\n    location_id INTEGER,\n    category_id INTEGER\n);",
+            "description": "Table to store information about photographs.",
+            "name": "photograph"
+        },
+        {
+            "classname": "Photographer",
+            "code": "class Photographer(Base):\n    \"\"\"description: Table to store information about photographers.\"\"\"\n    __tablename__ = 'photographer'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    name = Column(String, nullable=True)\n    biography = Column(String, nullable=True)",
+            "sqlite_create": "CREATE TABLE photographer (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    name TEXT,\n    biography TEXT\n);",
+            "description": "Table to store information about photographers.",
+            "name": "photographer"
+        },
+        {
+            "classname": "Album",
+            "code": "class Album(Base):\n    \"\"\"description: Table to store information about albums.\"\"\"\n    __tablename__ = 'album'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    name = Column(String, nullable=True)\n    description = Column(String, nullable=True)\n    creation_date = Column(Date, nullable=True)",
+            "sqlite_create": "CREATE TABLE album (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    name TEXT,\n    description TEXT,\n    creation_date DATE\n);",
+            "description": "Table to store information about albums.",
+            "name": "album"
+        },
+        {
+            "classname": "Location",
+            "code": "class Location(Base):\n    \"\"\"description: Table to store information about photograph locations.\"\"\"\n    __tablename__ = 'location'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    name = Column(String, nullable=True)\n    description = Column(String, nullable=True)",
+            "sqlite_create": "CREATE TABLE location (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    name TEXT,\n    description TEXT\n);",
+            "description": "Table to store information about photograph locations.",
+            "name": "location"
+        },
+        {
+            "classname": "Category",
+            "code": "class Category(Base):\n    \"\"\"description: Table to store information about photograph categories.\"\"\"\n    __tablename__ = 'category'\n\n    id = Column(Integer, primary_key=True, autoincrement=True)\n    name = Column(String, nullable=True)\n    description = Column(String, nullable=True)",
+            "sqlite_create": "CREATE TABLE category (\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\n    name TEXT,\n    description TEXT\n);",
+            "description": "Table to store information about photograph categories.",
+            "name": "category"
+        }
+    ],
+    "rules": [],
+    "test_data": "Test data for a photography website database, showcasing photographers, albums, and more.",
+    "test_data_rows": [
+        {
+            "test_data_row_variable": "photograph_1",
+            "code": "photograph_1 = Photograph(title='Sunset Bliss', description='A beautiful sunset view', upload_date=date(2023, 9, 10), photographer_id=1, album_id=1, location_id=1, category_id=1)"
+        },
+        {
+            "test_data_row_variable": "photograph_2",
+            "code": "photograph_2 = Photograph(title='Mountain Adventure', description='Ascending the peaks', upload_date=date(2023, 8, 5), photographer_id=2, album_id=2, location_id=2, category_id=2)"
+        },
+        {
+            "test_data_row_variable": "photograph_3",
+            "code": "photograph_3 = Photograph(title='Urban Exploration', description='Night lights', upload_date=date(2023, 7, 15), photographer_id=1, album_id=3, location_id=3, category_id=3)"
+        },
+        {
+            "test_data_row_variable": "photograph_4",
+            "code": "photograph_4 = Photograph(title='Calm Waters', description='Meditative landscapes', upload_date=date(2023, 10, 1), photographer_id=3, album_id=1, location_id=4, category_id=4)"
+        }
+    ],
+    "test_data_sqlite": "INSERT INTO photograph (title, description, upload_date, photographer_id, album_id, location_id, category_id) VALUES ('Sunset Bliss', 'A beautiful sunset view', '2023-09-10', 1, 1, 1, 1);\nINSERT INTO photograph (title, description, upload_date, photographer_id, album_id, location_id, category_id) VALUES ('Mountain Adventure', 'Ascending the peaks', '2023-08-05', 2, 2, 2, 2);\nINSERT INTO photograph (title, description, upload_date, photographer_id, album_id, location_id, category_id) VALUES ('Urban Exploration', 'Night lights', '2023-07-15', 1, 3, 3, 3);\nINSERT INTO photograph (title, description, upload_date, photographer_id, album_id, location_id, category_id) VALUES ('Calm Waters', 'Meditative landscapes', '2023-10-01', 3, 1, 4, 4);",
+    "name": "PhotographyWebsiteDB"
+}

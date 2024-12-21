@@ -1,0 +1,174 @@
+{
+    "models": [
+        {
+            "classname": "User",
+            "code": "class User(Base):\\n    \"\"\"description: This table stores user details.\"\"\"\\n    __tablename__ = 'users'\\n\\n    id = Column(Integer, primary_key=True, autoincrement=True)\\n    username = Column(String, nullable=False)\\n    email = Column(String, nullable=True)\\n    registered_on = Column(DateTime, nullable=True)",
+            "sqlite_create": "CREATE TABLE users (\\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\\n    username TEXT NOT NULL,\\n    email TEXT,\\n    registered_on DATETIME\\n);",
+            "description": "Stores details of the users for the photo website.",
+            "name": "User"
+        },
+        {
+            "classname": "Photograph",
+            "code": "class Photograph(Base):\\n    \"\"\"description: This table stores photograph details, including their uploader.\"\"\"\\n    __tablename__ = 'photographs'\\n\\n    id = Column(Integer, primary_key=True, autoincrement=True)\\n    title = Column(String, nullable=False)\\n    upload_date = Column(DateTime, nullable=True)\\n    uploaded_by_user_id = Column(Integer, ForeignKey('users.id'))\\n    image_path = Column(String, nullable=False)",
+            "sqlite_create": "CREATE TABLE photographs (\\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\\n    title TEXT NOT NULL,\\n    upload_date DATETIME,\\n    uploaded_by_user_id INTEGER,\\n    image_path TEXT NOT NULL,\\n    FOREIGN KEY(uploaded_by_user_id) REFERENCES users(id)\\n);",
+            "description": "Manages information about photographs that users upload.",
+            "name": "Photograph"
+        },
+        {
+            "classname": "Category",
+            "code": "class Category(Base):\\n    \"\"\"description: This table maintains categories for organizing photographs.\"\"\"\\n    __tablename__ = 'categories'\\n\\n    id = Column(Integer, primary_key=True, autoincrement=True)\\n    name = Column(String, nullable=False)\\n    description = Column(String, nullable=True)",
+            "sqlite_create": "CREATE TABLE categories (\\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\\n    name TEXT NOT NULL,\\n    description TEXT\\n);",
+            "description": "Lists all categories available for organizing photographs.",
+            "name": "Category"
+        },
+        {
+            "classname": "PhotoCategory",
+            "code": "class PhotoCategory(Base):\\n    \"\"\"description: This is a junction table linking photographs and categories.\"\"\"\\n    __tablename__ = 'photo_categories'\\n\\n    id = Column(Integer, primary_key=True, autoincrement=True)\\n    photo_id = Column(Integer, ForeignKey('photographs.id'))\\n    category_id = Column(Integer, ForeignKey('categories.id'))",
+            "sqlite_create": "CREATE TABLE photo_categories (\\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\\n    photo_id INTEGER,\\n    category_id INTEGER,\\n    FOREIGN KEY(photo_id) REFERENCES photographs(id),\\n    FOREIGN KEY(category_id) REFERENCES categories(id)\\n);",
+            "description": "Creates many-to-many relationship between photographs and categories.",
+            "name": "PhotoCategory"
+        },
+        {
+            "classname": "Comment",
+            "code": "class Comment(Base):\\n    \"\"\"description: This table stores comments made by users on photographs.\"\"\"\\n    __tablename__ = 'comments'\\n\\n    id = Column(Integer, primary_key=True, autoincrement=True)\\n    photograph_id = Column(Integer, ForeignKey('photographs.id'))\\n    user_id = Column(Integer, ForeignKey('users.id'))\\n    content = Column(Text, nullable=False)\\n    comment_date = Column(DateTime, nullable=True)",
+            "sqlite_create": "CREATE TABLE comments (\\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\\n    photograph_id INTEGER,\\n    user_id INTEGER,\\n    content TEXT NOT NULL,\\n    comment_date DATETIME,\\n    FOREIGN KEY(photograph_id) REFERENCES photographs(id),\\n    FOREIGN KEY(user_id) REFERENCES users(id)\\n);",
+            "description": "Enables users to comment on photographs.",
+            "name": "Comment"
+        },
+        {
+            "classname": "Tag",
+            "code": "class Tag(Base):\\n    \"\"\"description: This table holds tags associated with photographs.\"\"\"\\n    __tablename__ = 'tags'\\n\\n    id = Column(Integer, primary_key=True, autoincrement=True)\\n    name = Column(String, nullable=False)",
+            "sqlite_create": "CREATE TABLE tags (\\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\\n    name TEXT NOT NULL\\n);",
+            "description": "Lists all tags available for labeling photographs.",
+            "name": "Tag"
+        },
+        {
+            "classname": "PhotoTag",
+            "code": "class PhotoTag(Base):\\n    \"\"\"description: This is a junction table linking photographs and tags.\"\"\"\\n    __tablename__ = 'photo_tags'\\n\\n    id = Column(Integer, primary_key=True, autoincrement=True)\\n    photo_id = Column(Integer, ForeignKey('photographs.id'))\\n    tag_id = Column(Integer, ForeignKey('tags.id'))",
+            "sqlite_create": "CREATE TABLE photo_tags (\\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\\n    photo_id INTEGER,\\n    tag_id INTEGER,\\n    FOREIGN KEY(photo_id) REFERENCES photographs(id),\\n    FOREIGN KEY(tag_id) REFERENCES tags(id)\\n);",
+            "description": "Links photographs with tags for easy categorization.",
+            "name": "PhotoTag"
+        },
+        {
+            "classname": "Notification",
+            "code": "class Notification(Base):\\n    \"\"\"description: This table stores notifications sent to users.\"\"\"\\n    __tablename__ = 'notifications'\\n\\n    id = Column(Integer, primary_key=True, autoincrement=True)\\n    user_id = Column(Integer, ForeignKey('users.id'))\\n    message = Column(String, nullable=False)\\n    is_read = Column(Boolean, default=False)\\n    sent_date = Column(DateTime, nullable=True)",
+            "sqlite_create": "CREATE TABLE notifications (\\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\\n    user_id INTEGER,\\n    message TEXT NOT NULL,\\n    is_read BOOLEAN DEFAULT 0,\\n    sent_date DATETIME,\\n    FOREIGN KEY(user_id) REFERENCES users(id)\\n);",
+            "description": "Stores messages sent to users about activities.",
+            "name": "Notification"
+        },
+        {
+            "classname": "Favorite",
+            "code": "class Favorite(Base):\\n    \"\"\"description: This table records user favorites on photographs.\"\"\"\\n    __tablename__ = 'favorites'\\n\\n    id = Column(Integer, primary_key=True, autoIncrement=True)\\n    user_id = Column(Integer, ForeignKey('users.id'))\\n    photo_id = Column(Integer, ForeignKey('photographs.id'))",
+            "sqlite_create": "CREATE TABLE favorites (\\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\\n    user_id INTEGER,\\n    photo_id INTEGER,\\n    FOREIGN KEY(user_id) REFERENCES users(id),\\n    FOREIGN KEY(photo_id) REFERENCES photographs(id)\\n);",
+            "description": "Tracks user-favorited photographs.",
+            "name": "Favorite"
+        },
+        {
+            "classname": "Album",
+            "code": "class Album(Base):\\n    \"\"\"description: This table represents photo albums created by users.\"\"\"\\n    __tablename__ = 'albums'\\n\\n    id = Column(Integer, primary_key=True, autoincrement=True)\\n    name = Column(String, nullable=False)\\n    description = Column(String, nullable=True)\\n    user_id = Column(Integer, ForeignKey('users.id'))\\n    created_date = Column(DateTime, nullable=True)",
+            "sqlite_create": "CREATE TABLE albums (\\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\\n    name TEXT NOT NULL,\\n    description TEXT,\\n    user_id INTEGER,\\n    created_date DATETIME,\\n    FOREIGN KEY(user_id) REFERENCES users(id)\\n);",
+            "description": "Organizes photographs into user-generated albums.",
+            "name": "Album"
+        },
+        {
+            "classname": "AlbumPhotograph",
+            "code": "class AlbumPhotograph(Base):\\n    \"\"\"description: This is a junction table linking photographs and albums.\"\"\"\\n    __tablename__ = 'album_photographs'\\n\\n    id = Column(Integer, primary_key=True, autoincrement=True)\\n    album_id = Column(Integer, ForeignKey('albums.id'))\\n    photo_id = Column(Integer, ForeignKey('photographs.id'))",
+            "sqlite_create": "CREATE TABLE album_photographs (\\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\\n    album_id INTEGER,\\n    photo_id INTEGER,\\n    FOREIGN KEY(album_id) REFERENCES albums(id),\\n    FOREIGN KEY(photo_id) REFERENCES photographs(id)\\n);",
+            "description": "Processes many-to-many associations between albums and photographs.",
+            "name": "AlbumPhotograph"
+        },
+        {
+            "classname": "Follower",
+            "code": "class Follower(Base):\\n    \"\"\"description: This table manages user follow relations.\"\"\"\\n    __tablename__ = 'followers'\\n\\n    id = Column(Integer, primary_key=True, autoincrement=True)\\n    user_id = Column(Integer, ForeignKey('users.id'))\\n    follower_id = Column(Integer, ForeignKey('users.id'))",
+            "sqlite_create": "CREATE TABLE followers (\\n    id INTEGER PRIMARY KEY AUTOINCREMENT,\\n    user_id INTEGER,\\n    follower_id INTEGER,\\n    FOREIGN KEY(user_id) REFERENCES users(id),\\n    FOREIGN KEY(follower_id) REFERENCES users(id)\\n);",
+            "description": "Monitors followers and following relationships.",
+            "name": "Follower"
+        }
+    ],
+    "rules": [],
+    "test_data": "Photo site data model test cases.",
+    "test_data_rows": [
+        {
+            "test_data_row_variable": "user_1",
+            "code": "user_1 = User(id=1, username=\"john_doe\", email=\"john@example.com\", registered_on=date(2023, 1, 10))"
+        },
+        {
+            "test_data_row_variable": "user_2",
+            "code": "user_2 = User(id=2, username=\"jane_doe\", email=\"jane@example.com\", registered_on=date(2023, 2, 15))"
+        },
+        {
+            "test_data_row_variable": "user_3",
+            "code": "user_3 = User(id=3, username=\"alex_smith\", registered_on=date(2023, 3, 18))"
+        },
+        {
+            "test_data_row_variable": "user_4",
+            "code": "user_4 = User(id=4, username=\"lisa_brown\")"
+        },
+        {
+            "test_data_row_variable": "photo_1",
+            "code": "photo_1 = Photograph(id=1, title=\"Sunset\", upload_date=date(2023, 5, 15), uploaded_by_user_id=1, image_path=\"/images/sunset.jpg\")"
+        },
+        {
+            "test_data_row_variable": "photo_2",
+            "code": "photo_2 = Photograph(id=2, title=\"Mountains\", upload_date=date(2023, 6, 20), uploaded_by_user_id=2, image_path=\"/images/mountains.jpg\")"
+        },
+        {
+            "test_data_row_variable": "photo_3",
+            "code": "photo_3 = Photograph(id=3, title=\"Beach\", upload_date=date(2023, 7, 3), uploaded_by_user_id=1, image_path=\"/images/beach.jpg\")"
+        },
+        {
+            "test_data_row_variable": "photo_4",
+            "code": "photo_4 = Photograph(id=4, title=\"Cityscape\", upload_date=date(2023, 8, 22), uploaded_by_user_id=3, image_path=\"/images/cityscape.jpg\")"
+        },
+        {
+            "test_data_row_variable": "category_1",
+            "code": "category_1 = Category(id=1, name=\"Nature\", description=\"Photos from nature.\")"
+        },
+        {
+            "test_data_row_variable": "category_2",
+            "code": "category_2 = Category(id=2, name=\"Urban\", description=\"City and urban landscapes.\")"
+        },
+        {
+            "test_data_row_variable": "category_3",
+            "code": "category_3 = Category(id=3, name=\"Travel\", description=\"Travel photography.\")"
+        },
+        {
+            "test_data_row_variable": "category_4",
+            "code": "category_4 = Category(id=4, name=\"Black and White\", description=\"Monochrome pictures.\")"
+        },
+        {
+            "test_data_row_variable": "photo_category_1",
+            "code": "photo_category_1 = PhotoCategory(id=1, photo_id=1, category_id=1)"
+        },
+        {
+            "test_data_row_variable": "photo_category_2",
+            "code": "photo_category_2 = PhotoCategory(id=2, photo_id=2, category_id=3)"
+        },
+        {
+            "test_data_row_variable": "photo_category_3",
+            "code": "photo_category_3 = PhotoCategory(id=3, photo_id=3, category_id=1)"
+        },
+        {
+            "test_data_row_variable": "photo_category_4",
+            "code": "photo_category_4 = PhotoCategory(id=4, photo_id=4, category_id=2)"
+        },
+        {
+            "test_data_row_variable": "comment_1",
+            "code": "comment_1 = Comment(id=1, photograph_id=1, user_id=2, content=\"Amazing photo!\", comment_date=date(2023, 5, 16))"
+        },
+        {
+            "test_data_row_variable": "comment_2",
+            "code": "comment_2 = Comment(id=2, photograph_id=2, user_id=1, content=\"Great capture!\", comment_date=date(2023, 6, 21))"
+        },
+        {
+            "test_data_row_variable": "comment_3",
+            "code": "comment_3 = Comment(id=3, photograph_id=3, user_id=3, content=\"Beautiful view.\", comment_date=date(2023, 7, 4))"
+        },
+        {
+            "test_data_row_variable": "comment_4",
+            "code": "comment_4 = Comment(id=4, photograph_id=4, user_id=4, content=\"Love the skyline.\", comment_date=date(2023, 8, 23))"
+        }
+    ],
+    "test_data_sqlite": "INSERT INTO users (id, username, email, registered_on) VALUES (1, \"john_doe\", \"john@example.com\", '2023-01-10');\\nINSERT INTO users (id, username, email, registered_on) VALUES (2, \"jane_doe\", \"jane@example.com\", '2023-02-15');\\nINSERT INTO users (id, username, email, registered_on) VALUES (3, \"alex_smith\", '', '2023-03-18');\\nINSERT INTO users (id, username, email, registered_on) VALUES (4, \"lisa_brown\", '', NULL);\\n\\nINSERT INTO photographs (id, title, upload_date, uploaded_by_user_id, image_path) VALUES (1, \"Sunset\", '2023-05-15', 1, \"/images/sunset.jpg\");\\nINSERT INTO photographs (id, title, upload_date, uploaded_by_user_id, image_path) VALUES (2, \"Mountains\", '2023-06-20', 2, \"/images/mountains.jpg\");\\nINSERT INTO photographs (id, title, upload_date, uploaded_by_user_id, image_path) VALUES (3, \"Beach\", '2023-07-03', 1, \"/images/beach.jpg\");\\nINSERT INTO photographs (id, title, upload_date, uploaded_by_user_id, image_path) VALUES (4, \"Cityscape\", '2023-08-22', 3, \"/images/cityscape.jpg\");\\n\\nINSERT INTO categories (id, name, description) VALUES (1, \"Nature\", \"Photos from nature.\");\\nINSERT INTO categories (id, name, description) VALUES (2, \"Urban\", \"City and urban landscapes.\");\\nINSERT INTO categories (id, name, description) VALUES (3, \"Travel\", \"Travel photography.\");\\nINSERT INTO categories (id, name, description) VALUES (4, \"Black and White\", \"Monochrome pictures.\");\\n\\nINSERT INTO photo_categories (id, photo_id, category_id) VALUES (1, 1, 1);\\nINSERT INTO photo_categories (id, photo_id, category_id) VALUES (2, 2, 3);\\nINSERT INTO photo_categories (id, photo_id, category_id) VALUES (3, 3, 1);\\nINSERT INTO photo_categories (id, photo_id, category_id) VALUES (4, 4, 2);\\n\\nINSERT INTO comments (id, photograph_id, user_id, content, comment_date) VALUES (1, 1, 2, \"Amazing photo!\", '2023-05-16');\\nINSERT INTO comments (id, photograph_id, user_id, content, comment_date) VALUES (2, 2, 1, \"Great capture!\", '2023-06-21');\\nINSERT INTO comments (id, photograph_id, user_id, content, comment_date) VALUES (3, 3, 3, \"Beautiful view.\", '2023-07-04');\\nINSERT INTO comments (id, photograph_id, user_id, content, comment_date) VALUES (4, 4, 4, \"Love the skyline.\", '2023-08-23');\\n",
+    "name": "PhotoGallery"
+}

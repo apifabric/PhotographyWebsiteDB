@@ -1,0 +1,57 @@
+// Copy this text, paste to https://dbdiagram.io/d
+// Or, https://databasediagram.com/app
+// Or, view in VSCode with extension: "DBML Live Preview"
+
+Project DBML {
+  Note: '''
+Album: Table to store information about albums.
+Category: Table to store information about photograph categories.
+Location: Table to store information about photograph locations.
+Photograph: Table to store information about photographs.
+Photographer: Table to store information about photographers.
+'''
+}
+
+Table Album {
+    id INTEGER [primary key]
+    name VARCHAR 
+    description VARCHAR 
+    creation_date DATE 
+    }
+
+Table Category {
+    id INTEGER [primary key]
+    name VARCHAR 
+    description VARCHAR 
+    }
+
+Table Location {
+    id INTEGER [primary key]
+    name VARCHAR 
+    description VARCHAR 
+    }
+
+Table Photograph {
+    id INTEGER [primary key]
+    title VARCHAR 
+    description VARCHAR 
+    upload_date DATE 
+    photographer_id INTEGER 
+    album_id INTEGER 
+    location_id INTEGER 
+    category_id INTEGER 
+    }
+
+Table Photographer {
+    id INTEGER [primary key]
+    name VARCHAR 
+    biography VARCHAR 
+    }
+
+
+
+// Relationships
+    Ref: Photograph.(album_id) < Album.(id)
+    Ref: Photograph.(category_id) < Category.(id)
+    Ref: Photograph.(location_id) < Location.(id)
+    Ref: Photograph.(photographer_id) < Photographer.(id)

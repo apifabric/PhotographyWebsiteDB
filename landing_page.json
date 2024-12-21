@@ -1,0 +1,121 @@
+{
+    "name": "Captured Moments Gallery",
+    "logo": {
+        "Type": "Logo",
+        "name": "Captured Moments Logo",
+        "description": "A camera lens logo with the text 'Captured Moments Gallery' underneath."
+    },
+    "sections": [
+        {
+            "title": "Welcome to Captured Moments",
+            "subtitle": "Where Every Picture Tells a Story",
+            "name": "Hero,",
+            "label": "Home",
+            "content": "![Beautiful Scenery](https://example.com/hero-image.jpg)  \nExperience the world through our lens. Dive into a sea of emotions captured perfectly in stunning visuals.  \n[Explore Gallery](#gallery)",
+            "order": 1,
+            "Type": "Hero",
+            "images": [
+                {
+                    "Type": "Hero",
+                    "name": "Scenic Landscape",
+                    "description": "Wide-angle shot of a serene landscape at sunset with vibrant colors."
+                }
+            ]
+        },
+        {
+            "title": "About Us",
+            "subtitle": "Our Journey Through the Lens",
+            "name": "About,",
+            "label": "About Us",
+            "content": "At Captured Moments Gallery, we believe in the power of photography to capture emotions and create lasting memories. Established in 2010, our team of expert photographers specializes in various genres like landscape, portrait, and event photography. Our mission is to tell stories through visually stunning images that leave a lasting impact.  \n![Team Photo](https://example.com/about-image.jpg)",
+            "order": 2,
+            "Type": "About",
+            "images": [
+                {
+                    "Type": "Headshot",
+                    "name": "Photographer John Doe",
+                    "description": "John Doe capturing the perfect sunset shot with his camera."
+                }
+            ]
+        },
+        {
+            "title": "Our Services",
+            "subtitle": "Turning Moments into Art",
+            "name": "Services,",
+            "label": "Services",
+            "content": "Explore the services that make your memories timeless:  \n- **Wedding Photography**: Capture the essence of your special day.  \n- **Portrait Photography**: Individual or family portraits crafted with care.  \n- **Event Photography**: From corporate events to personal celebrations.  \n- **Custom Shoots**: Tailored sessions to fit unique themes and ideas.  \n![Service Sample](https://example.com/service-image.jpg)",
+            "order": 3,
+            "Type": "Services",
+            "images": [
+                {
+                    "Type": "ItemListing",
+                    "name": "Wedding Ceremony",
+                    "description": "A breathtaking shot of a couple exchanging vows."
+                }
+            ]
+        },
+        {
+            "title": "Our Portfolio",
+            "subtitle": "A Glimpse into Our World",
+            "name": "Gallery,",
+            "label": "Gallery",
+            "content": "Dive into our curated collection of breathtaking photographs. Witness the artistry and dedication poured into every capture.  \n![Portfolio Image](https://example.com/gallery-image-1.jpg)  \n![Portfolio Image](https://example.com/gallery-image-2.jpg)",
+            "order": 4,
+            "Type": "Gallery",
+            "images": [
+                {
+                    "Type": "Gallery",
+                    "name": "Cityscape Night View",
+                    "description": "A long exposure capture of a bustling city at night."
+                },
+                {
+                    "Type": "Gallery",
+                    "name": "Portrait of a Dancer",
+                    "description": "A dancer in mid-pose, capturing the grace and form."
+                }
+            ]
+        },
+        {
+            "title": "Get in Touch",
+            "subtitle": "We Would Love to Hear from You",
+            "name": "Contact,",
+            "label": "Contact",
+            "content": "Reach out to us for bookings, queries, or collaborations:  \n- **Email**: info@capturedmomentsgallery.com  \n- **Phone**: (123) 456-7890  \n- **Address**: 123 Studio Lane, Photo City, SCP 12345  \n[Contact Form](#contact-form)",
+            "order": 5,
+            "Type": "Contact",
+            "images": [
+                {
+                    "Type": "Map",
+                    "name": "Studio Location",
+                    "description": "Map pinpointing the gallery's location."
+                }
+            ]
+        },
+        {
+            "title": "Stay Connected",
+            "subtitle": "Follow Us on Social Media",
+            "name": "Footer,",
+            "label": "Footer",
+            "content": "Keep in touch and get updates on our latest work by following us:  \n![Facebook Icon](https://example.com/facebook-icon.png)  \n![Instagram Icon](https://example.com/instagram-icon.png)  \n![Twitter Icon](https://example.com/twitter-icon.png)",
+            "order": 6,
+            "Type": "Footer",
+            "images": [
+                {
+                    "Type": "Icon",
+                    "name": "Facebook Icon",
+                    "description": "Blue Facebook logo for social media link."
+                },
+                {
+                    "Type": "Icon",
+                    "name": "Instagram Icon",
+                    "description": "Colorful Instagram logo for social media link."
+                },
+                {
+                    "Type": "Icon",
+                    "name": "Twitter Icon",
+                    "description": "White Twitter bird logo on a blue background."
+                }
+            ]
+        }
+    ]
+}

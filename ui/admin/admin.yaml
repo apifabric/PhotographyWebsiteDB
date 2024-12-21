@@ -1,0 +1,155 @@
+about:
+  date: December 21, 2024 20:03:57
+  recent_changes: works with modified safrs-react-admin
+  version: 0.0.0
+api_root: '{http_type}://{swagger_host}:{port}/{api}'
+authentication: '{system-default}'
+info:
+  number_relationships: 4
+  number_tables: 5
+info_toggle_checked: true
+resources:
+  Album:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: description
+    - name: creation_date
+      type: DATE
+    - name: id
+    description: Table to store information about albums.
+    info_list: Table to store information about albums.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - album_id
+      name: PhotographList
+      resource: Photograph
+    type: Album
+    user_key: name
+  Category:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: description
+    - name: id
+    description: Table to store information about photograph categories.
+    info_list: Table to store information about photograph categories.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - category_id
+      name: PhotographList
+      resource: Photograph
+    type: Category
+    user_key: name
+  Location:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: description
+    - name: id
+    description: Table to store information about photograph locations.
+    info_list: Table to store information about photograph locations.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - location_id
+      name: PhotographList
+      resource: Photograph
+    type: Location
+    user_key: name
+  Photograph:
+    attributes:
+    - label: ' description*'
+      name: description
+      search: true
+      sort: true
+    - name: album_id
+    - name: category_id
+    - name: location_id
+    - name: photographer_id
+    - name: title
+    - name: upload_date
+      type: DATE
+    - name: id
+    description: Table to store information about photographs.
+    info_list: Table to store information about photographs.
+    tab_groups:
+    - direction: toone
+      fks:
+      - album_id
+      name: album
+      resource: Album
+    - direction: toone
+      fks:
+      - category_id
+      name: category
+      resource: Category
+    - direction: toone
+      fks:
+      - location_id
+      name: location
+      resource: Location
+    - direction: toone
+      fks:
+      - photographer_id
+      name: photographer
+      resource: Photographer
+    type: Photograph
+    user_key: description
+  Photographer:
+    attributes:
+    - label: ' name*'
+      name: name
+      search: true
+      sort: true
+    - name: biography
+    - name: id
+    description: Table to store information about photographers.
+    info_list: Table to store information about photographers.
+    tab_groups:
+    - direction: tomany
+      fks:
+      - photographer_id
+      name: PhotographList
+      resource: Photograph
+    type: Photographer
+    user_key: name
+settings:
+  HomeJS: /admin-app/home.js
+  max_list_columns: 8
+  style_guide:
+    applicationLocales:
+    - en
+    - es
+    currency_symbol: $
+    currency_symbol_position: left
+    date_format: LL
+    decimal_max: '1000000000'
+    decimal_min: '0'
+    decimal_separator: .
+    detail_mode: tab
+    edit_on_mode: dblclick
+    exclude_listpicker: false
+    include_translation: 'false'
+    keycloak_client_id: alsclient
+    keycloak_realm: kcals
+    keycloak_url: http://localhost:8080
+    locale: en
+    max_decimal_digits: '4'
+    min_decimal_digits: '2'
+    new_mode: dialog
+    pick_style: list
+    row_height: small,
+    serviceType: OntimizeEE
+    startSessionPath: /auth/login
+    style: light
+    thousand_separator: ','
+    use_keycloak: 'false'
